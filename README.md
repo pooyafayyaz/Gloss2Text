@@ -14,8 +14,9 @@ Official PyTorch implementation of the paper:
 
 [GLOSS2TEXT: Sign Language Gloss translation using LLMs and Semantically Aware Label Smoothing](https://arxiv.org/abs/2407.01394).
 
-</div>
+<img src="imgs/arch.png" alt="Description of the image" width="400"/>
 
+</div>
 
 ### Bibtex
 If you find this code useful in your research, please cite:
@@ -52,4 +53,4 @@ python train_gls2text_nllb_lora.py
 The pre-trained model is located [here](https://drive.google.com/drive/folders/1aoiBWg0-_iQ9JaWG4uscJuTMGJyvpnSL?usp=drive_link), download it and put it in the 'pretrained' folder, 
 
 ## License :books:
-Note that the code depends on other libraries, including PyTorch, HugginFace, Two-Stram Network, and use the Phonix-2014 dataset which each have their own respective licenses that must also be followed.
+This code depends on several libraries, including PyTorch, HuggingFace, and Two-Stream Network. It also uses the Phoenix-2014T dataset. Please ensure compliance with their respective licenses.
