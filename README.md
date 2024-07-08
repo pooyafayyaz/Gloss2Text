@@ -30,13 +30,26 @@ If you find this code useful in your research, please cite:
 ```
 
 ## Installation :construction_worker: 
+To set up the environment, run:
+
+```
+conda create -n slt python=3.8.4
+```
+
+## Dataset :closed_book: 
+Please follow the link to download the [Phoenix-2014T dataset](
+https://www-i6.informatik.rwth-aachen.de/~koller/RWTH-PHOENIX-2014-T/), the dataset is a german sign lanugae consisting the gloss and translation pairs:
 
 
 ## Training :rocket:
-## Test :bar_chart:
+To start training, run the following command. Modify any arguments as needed:
 
-**Instead, you can also use `python misc/process_cslr_json/run_pipeline.py --input_dir INPUT_DIR --output_dir OUTPUT_DIR --subs_dir SUBS_DIR --subset2episode SUBSET2EPISODE`**
-</details>
+```
+python train_gls2text_nllb_lora.py
+```
+
+## Test :bar_chart:
+The pre-trained model is located [here](https://drive.google.com/drive/folders/1aoiBWg0-_iQ9JaWG4uscJuTMGJyvpnSL?usp=drive_link), download it and put it in the 'pretrained' folder, 
 
 ## License :books:
 Note that the code depends on other libraries, including PyTorch, HugginFace, Two-Stram Network, and use the Phonix-2014 dataset which each have their own respective licenses that must also be followed.
