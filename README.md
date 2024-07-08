@@ -41,6 +41,7 @@ conda create -n slt python=3.8.4
 Please follow the link to download the [Phoenix-2014T dataset](
 https://www-i6.informatik.rwth-aachen.de/~koller/RWTH-PHOENIX-2014-T/), the dataset is a german sign lanugae consisting the gloss and translation pairs:
 
+Download the data and put it in the 'data' folder.
 
 ## Training :rocket:
 To start training, run the following command. Modify any arguments as needed:
