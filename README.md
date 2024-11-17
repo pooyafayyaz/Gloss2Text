@@ -21,13 +21,25 @@ Official PyTorch implementation of the paper:
 ### Bibtex
 If you find this code useful in your research, please cite:
 
-```bibtex
-@article{fayyazsanavi2024gloss2text,
-  title={Gloss2Text: Sign Language Gloss translation using LLMs and Semantically Aware Label Smoothing},
-  author={Fayyazsanavi, Pooya and Anastasopoulos, Antonios and Ko{\v{s}}eck{\'a}, Jana},
-  journal={arXiv preprint arXiv:2407.01394},
-  year={2024}
+```
+@inproceedings{fayyazsanavi-etal-2024-gloss2text,
+    title = "{G}loss2{T}ext: Sign Language Gloss translation using {LLM}s and Semantically Aware Label Smoothing",
+    author = "Fayyazsanavi, Pooya  and
+      Anastasopoulos, Antonios  and
+      Kosecka, Jana",
+    editor = "Al-Onaizan, Yaser  and
+      Bansal, Mohit  and
+      Chen, Yun-Nung",
+    booktitle = "Findings of the Association for Computational Linguistics: EMNLP 2024",
+    month = nov,
+    year = "2024",
+    address = "Miami, Florida, USA",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2024.findings-emnlp.947",
+    pages = "16162--16171",
+    abstract = "Sign language translation from video to spoken text presents unique challenges owing to the distinct grammar, expression nuances, and high variation of visual appearance across different speakers and contexts. Gloss annotations serve as an intermediary to guide the translation process. In our work, we focus on \textit{Gloss2Text} translation stage and propose several advances by leveraging pre-trained large language models (LLMs), data augmentation, and novel label-smoothing loss function exploiting gloss translation ambiguities improving significantly the performance of state-of-the-art approaches. Through extensive experiments and ablation studies on the PHOENIX Weather 2014T dataset, our approach surpasses state-of-the-art performance in \textit{Gloss2Text} translation, indicating its efficacy in addressing sign language translation and suggesting promising avenues for future research and development.",
 }
+
 ```
 
 ## Installation :construction_worker: 
