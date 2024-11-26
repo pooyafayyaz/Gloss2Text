@@ -12,7 +12,7 @@
 Official PyTorch implementation of the paper:
 <div align="center">
 
-[GLOSS2TEXT: Sign Language Gloss translation using LLMs and Semantically Aware Label Smoothing](https://arxiv.org/abs/2407.01394).
+[GLOSS2TEXT: Sign Language Gloss translation using LLMs and Semantically Aware Label Smoothing](https://aclanthology.org/2024.findings-emnlp.947/).
 
 <img src="imgs/arch.png" alt="Description of the image" width="400"/>
 
