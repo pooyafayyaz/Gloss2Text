@@ -55,12 +55,30 @@ https://www-i6.informatik.rwth-aachen.de/~koller/RWTH-PHOENIX-2014-T/), the data
 
 Download the data and put it in the 'data' folder.
 
+## Paraphrasing :books:
+First, the spoken text data needs to be translated into a pivot language and then back to German:
+
+```
+python get_paraphrasing.py
+```
+
+## Back Translation :notebook_with_decorative_cover:
+Then, to augment the gloss side, NLLB should be fine-tuned on the Text2Gloss pairs:
+
+```
+python train_backtranslation.py
+```
+
+After training, you need to inference the model on the training set to generate pseudo glosses. If they differ from the original gloss, you should add them to the training set.
+
 ## Training :rocket:
 To start training, run the following command. Modify any arguments as needed:
 
 ```
 python train_gls2text_nllb_lora.py
 ```
+
+For the best results, first run the model using all the paraphrasing and back-translation data with the SALS loss function, excluding semantic information. Then, remove the data augmentation and train exclusively on the original Gloss2Text data using the SALS loss function.
 
 ## Test :bar_chart:
 The pre-trained model is located [here](https://drive.google.com/drive/folders/1aoiBWg0-_iQ9JaWG4uscJuTMGJyvpnSL?usp=drive_link), download it and put it in the 'pretrained' folder, 
