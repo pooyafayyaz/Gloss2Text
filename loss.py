@@ -72,13 +72,69 @@ class SALSLoss(nn.Module):
             smooth_dist.index_fill_(0, padding_positions.squeeze(), 0.0)
         return Variable(smooth_dist, requires_grad=False)
 
+    def _smooth_targets(self, targets: Tensor, vocab_size: int):
+        """
+        Constructs targeted label smoothing where it only focuses on the target vocabulary.
+        
+        Args:
+        - targets (Tensor): The target tensor containing token indices.
+        - vocab_size (int): The size of the vocabulary.
+        
+        Returns:
+        - Tensor: A tensor containing the similarity vectors for each token.
+        """
+        
+        # batch*seq_len x vocab_size
+        smooth_dist = targets.new_zeros((targets.size(0), vocab_size)).float()
+        # fill distribution uniformly with smoothing
+        smooth_dist.fill_(self.smoothing / (vocab_size - 2))
+        
+        smooth_dist = targets.new_zeros((targets.size(0), vocab_size)).float()
+        masks = torch.zeros_like(smooth_dist)
+        smooth_dist.fill_(self.smoothing / (len(self.sim_ids) - 1))
+
+        masks[:, self.sim_ids] = 1
+        smooth_dist *= masks
+
+        # assign true label the probability of 1-smoothing ("confidence")
+        smooth_dist.scatter_(1, targets.unsqueeze(1).data, 1.0 - self.smoothing)
+
+        # give padding probability of 0 everywhere
+        smooth_dist[:, self.pad_index] = 0
+        padding_positions = torch.nonzero(targets.data == self.pad_index)
+        if len(padding_positions) > 0:
+            smooth_dist.index_fill_(0, padding_positions.squeeze(), 0.0)
+        return Variable(smooth_dist, requires_grad=False)
+
+
+    def _smooth_targets3(self, targets: Tensor, vocab_size: int):
+        smooth_dist = targets.new_zeros((targets.size(0), vocab_size)).float()
+        smooth_dist.fill_(self.smoothing / (vocab_size - 2))
+        smooth_dist.scatter_(1, targets.unsqueeze(1).data, 1.0 - self.smoothing)
+        smooth_dist[:, self.pad_index] = 0
+        padding_positions = torch.nonzero(targets.data == self.pad_index)
+        if len(padding_positions) > 0:
+            smooth_dist.index_fill_(0, padding_positions.squeeze(), 0.0)
+        return Variable(smooth_dist, requires_grad=False)
+
 
     def forward(self, log_probs, targets, txt_target):
         
-        targets = self._smooth_targets2(
-            targets=targets.contiguous().view(-1), vocab_size=log_probs.size(-1), txt_target
-        )
-        
+        if txt_target != None:
+            targets = self._smooth_targets2(
+                targets=targets.contiguous().view(-1), vocab_size=log_probs.size(-1), txt_target
+            )
+        else:
+            if self.sim_ids:
+                targets = self._smooth_targets(
+                    targets=targets.contiguous().view(-1), vocab_size=log_probs.size(-1)
+                )
+            else:
+                targets = self._smooth_targets3(
+                    targets=targets.contiguous().view(-1), vocab_size=log_probs.size(-1)
+                )
+
+            
         loss = self.criterion(
             log_probs.contiguous().view(-1, log_probs.size(-1)), targets
         )
